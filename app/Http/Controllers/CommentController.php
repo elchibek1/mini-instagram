@@ -22,7 +22,7 @@ class CommentController extends Controller
         $comment->post_id = (int)$request['post_id'];
         $comment->text = $request['text'];
         $comment->save();
-        return redirect()->route('posts.index')->with('message', "Comment successfully created");
+        return redirect()->route('posts.index')->with('message', "Comment will be displayed only after approval by the administrator");
     }
 
 

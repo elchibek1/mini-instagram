@@ -2,6 +2,9 @@
 
 namespace App\Orchid\Screens;
 
+use App\Models\Comment;
+use App\Orchid\Layouts\CommentsListLayout;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
 class CommentsListScreen extends Screen
@@ -13,7 +16,9 @@ class CommentsListScreen extends Screen
      */
     public function query(): iterable
     {
-        return [];
+        return [
+            'comments' => Comment::filters()->defaultSort('id')->paginate()
+        ];
     }
 
     /**
@@ -23,7 +28,7 @@ class CommentsListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'CommentsListScreen';
+        return 'Comments';
     }
 
     /**
@@ -33,7 +38,11 @@ class CommentsListScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
+        return [
+            Link::make('Create new')
+            ->icon('icon-pencil')
+            ->route('platform.comments.edit')
+        ];
     }
 
     /**
@@ -43,6 +52,8 @@ class CommentsListScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            CommentsListLayout::class
+        ];
     }
 }

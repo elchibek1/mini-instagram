@@ -27,18 +27,9 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
+        return 'HW-65';
     }
 
-    /**
-     * Display header description.
-     *
-     * @return string|null
-     */
-    public function description(): ?string
-    {
-        return 'Welcome to your Orchid application.';
-    }
 
     /**
      * The screen's action buttons.

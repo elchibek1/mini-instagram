@@ -2,6 +2,8 @@
 
 namespace App\Orchid\Layouts;
 
+use App\Models\Comment;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -15,7 +17,7 @@ class CommentsListLayout extends Table
      *
      * @var string
      */
-    protected $target = '';
+    protected $target = 'comments';
 
     /**
      * Get the table cells to be displayed.
@@ -24,6 +26,16 @@ class CommentsListLayout extends Table
      */
     protected function columns(): iterable
     {
-        return [];
+        return [
+            TD::make('id', 'ID')->sort(),
+            TD::make('text', 'Text'),
+            TD::make('approved', 'Is approved')
+                ->render(function (Comment $comment)
+                {
+                    return Link::make($comment->approved)->route('platform.comments.edit', compact('comment'));
+                })->filter(TD::FILTER_NUMERIC),
+            TD::make('created_at', 'Created')->sort(),
+            TD::make('updated_at', 'Last edit')->sort()
+        ];
     }
 }

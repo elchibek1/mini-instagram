@@ -19,7 +19,8 @@ class CommentFactory extends Factory
         return [
             'text' => $this->faker->paragraph(),
             'user_id' => rand(1,3),
-            'post_id' => rand(1,3)
+            'post_id' => rand(1,3),
+            'approved' => (bool)mt_rand(0,1)
         ];
     }
 }

@@ -77,6 +77,7 @@
         </form>
         <div class="row row-cols-1 g-4 pt-5">
             @foreach($post->comments as $comment)
+                @if($comment->approved)
                 <div class="media g-mb-30 media-comment mt-3">
                     <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                         <div class="g-mb-15">
@@ -87,13 +88,6 @@
                         </div>
                         <div class="actions pt-2" style="display: flex">
 
-                            @can('update-comment', $comment)
-                                <a href="{{route('comments.edit', ['post' => $post, 'comment' => $comment])}}">
-                                    <button class="btn btn-outline-warning">
-                                        Изменить
-                                    </button>
-                                </a>
-                            @endcan
                             @can('delete-comment', $comment)
                                 <form id="delete-comment"
                                       action="{{route('comments.destroy', ['post' => $post,'comment' => $comment])}}"
@@ -109,6 +103,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
         </div>
         <div class="row pt-1">
