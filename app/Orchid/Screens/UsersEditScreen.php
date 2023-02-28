@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
@@ -49,7 +50,7 @@ class UsersEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Create comment')
+            Button::make('Create user')
                 ->icon('icon-pencil')
                 ->method('createOrUpdate')
                 ->canSee(!$this->exists),
@@ -75,19 +76,29 @@ class UsersEditScreen extends Screen
         return [
             Layout::rows([
                 Input::make('user.name')
-                    ->title('Text')
-                    ->placeholder('text')
-                    ->help('Specify a short descriptive text for this comment'),
+                    ->title('Name')
+                    ->placeholder('name')
+                    ->help('Specify a short descriptive text for this comment')
+                    ->required(),
 
                 Input::make('user.email')
                     ->title('Email')
-                    ->placeholder('email'),
+                    ->placeholder('email')
+                    ->required(),
 
                 Input::make('user.password')
-                    ->title('Password'),
+                    ->title('Password')
+                    ->required(),
 
-                Input::make('user.admin')
-                    ->title('Approved'),
+                Select::make('user.admin')
+                    ->options(
+                        [
+                            0 => 'false',
+                            1 => 'true'
+                        ]
+                    )
+                    ->title('Approved')
+                ->required(),
 
             ])
         ];

@@ -39,15 +39,12 @@ class PostController extends Controller
         $post->user_id = $request->user()->id;
         $post->text = $request['text'];
         $post->save();
-        if (!is_null($request['picture']))
-        {
+        if (!is_null($request['picture'])) {
             for ($i = 0; $i < count($request['picture']); $i++) {
                 $picture = $request->file('picture')[$i]->store('pictures/photos', 'public');
                 Photo::create(['post_id' => $post->id, 'picture' => $picture]);
             }
-        }
-        else
-        {
+        } else {
             $post->delete();
             return redirect()->route('posts.index')->with('message', 'Post must be with image/s');
         }
@@ -79,7 +76,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $this->authorize('update-post', $post);
-        $request->validate(['text' => 'required', 'picture.*' => 'image|required']);
+        $request->validate(['text' => ['required'], 'picture.*' => ['image', 'required']]);
         $post->user_id = $request->user()->id;
         $post->text = $request['text'];
         for ($i = 0; $i < count($request['picture']); $i++) {

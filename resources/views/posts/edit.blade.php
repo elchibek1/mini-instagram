@@ -19,7 +19,7 @@
                     <img src="{{asset('/storage/' . $photo->picture)}}" alt="{{$photo->picture}}"
                          style="width:50px;height:50px;">
                     @endforeach
-                    <input type="file" class="custom-file-input" multiple id="customFile" name="picture[]">
+                        <input type="file" class="custom-file-input" multiple id="customFile" name="picture[]">
                     @error('picture')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

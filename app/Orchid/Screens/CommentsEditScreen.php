@@ -7,9 +7,11 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Quill;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
@@ -80,18 +82,26 @@ class CommentsEditScreen extends Screen
                 Input::make('comment.text')
                 ->title('Text')
                 ->placeholder('text')
-                ->help('Specify a short descriptive text for this comment'),
+                ->help('Specify a short descriptive text for this comment')
+                ->required(),
 
-                Input::make('comment.approved')
-                ->title('Approved'),
+                Select::make('comment.approved')
+                    ->options([
+                        0 => 'false',
+                        1 => 'true'
+                    ])
+                ->title('Approved')
+                ->required(),
 
                 Relation::make('comment.user_id')
                 ->title('Author')
-                ->fromModel(User::class, 'name', 'id'),
+                ->fromModel(User::class, 'name', 'id')
+                ->required(),
 
                 Relation::make('comment.post_id')
                 ->title('Id of post')
-                ->fromModel(Post::class, 'id', 'id'),
+                ->fromModel(Post::class, 'id', 'id')
+                ->required(),
 
             ])
         ];

@@ -32,10 +32,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('database')
                 ->route('platform.comments.list'),
 
-//            Menu::make(__('Users'))
-//                ->icon('user')
-//                ->route('platform.systems.users')
-//                ->permission('platform.systems.users'),
+            Menu::make('Users')
+                ->icon('user')
+                ->route('platform.users.list'),
+
 
             Menu::make(__('Roles'))
                 ->icon('lock')

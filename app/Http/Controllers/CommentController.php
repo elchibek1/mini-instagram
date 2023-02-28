@@ -16,11 +16,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['text' => 'required', 'post_id' => 'required']);
+        $request->validate(['text' => 'required', 'post_id' => 'required', 'approved' => 'boolean']);
         $comment = new Comment();
         $comment->user_id = $request->user()->id;
         $comment->post_id = (int)$request['post_id'];
         $comment->text = $request['text'];
+        $comment->approved = $request['approved'];
         $comment->save();
         return redirect()->route('posts.index')->with('message', "Comment will be displayed only after approval by the administrator");
     }

@@ -7,9 +7,8 @@ use App\Orchid\Screens\CommentsListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
-use App\Orchid\Screens\User\UserEditScreen;
-use App\Orchid\Screens\User\UserListScreen;
-use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\UsersEditScreen;
+use App\Orchid\Screens\UsersListScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -63,3 +62,8 @@ Route::screen('comments', CommentsListScreen::class)
     {
         return $trail->parent('platform.index')->push('Comments');
     });
+
+Route::screen('user/{user?}', UsersEditScreen::class)->name('platform.users.edit');
+
+Route::screen('users', UsersListScreen::class)
+    ->name('platform.users.list');

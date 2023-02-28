@@ -62,6 +62,7 @@
         <form action="{{route('comments.store')}}" method="post">
             @csrf
             <input type="hidden" name="post_id" value="{{$post->id}}">
+            <input type="hidden" name="approved" value="{{0}}">
             <div class="form-group">
                 <label class="text-center">Оставить комментарий</label>
                 <input type="text" class="form-control" name="text" value="{{old('text')}}">
