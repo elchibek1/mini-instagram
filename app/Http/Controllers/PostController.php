@@ -77,13 +77,22 @@ class PostController extends Controller
     {
         $this->authorize('update-post', $post);
         $request->validate(['text' => ['required'], 'picture.*' => ['image', 'required']]);
+        if(!is_null($request['picture']))
+        {
+            for ($i = 0; $i < count($request['picture']); $i++) {
+                $picture = $request->file('picture')[$i]->store('pictures/photos', 'public');
+                Photo::create(['post_id' => $post->id, 'picture' => $picture]);
+            }
+        }
+        else
+        {
+            return redirect()->route('posts.index')->with('message', 'Post must be with image/s');
+        }
         $post->user_id = $request->user()->id;
         $post->text = $request['text'];
-        for ($i = 0; $i < count($request['picture']); $i++) {
-            $picture = $request->file('picture')[$i]->store('pictures/photos', 'public');
-            Photo::create(['post_id' => $post->id, 'picture' => $picture]);
-        }
         $post->update();
+
+
         return redirect()->route('posts.index')->with('message', "Post {$post->text} successfully updated!");
     }
 
