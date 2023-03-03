@@ -44,6 +44,9 @@
                             <a class="nav-link" href="{{route('profile')}}">Мой профиль</a>
                         </li>
 
+                        <li class="mav-item">
+                            <a class="nav-link" href="{{route('platform.main')}}">Админ</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
